@@ -143,7 +143,8 @@ const b64="H4sIAF/nrWoC/9W923LbyrYo9u6vwKTn9CSXIAoAbyA1KR+JkizZuti6+aLtZIIkKMIiC
 "xhVUjlwmgljlwmVQH1qb54ATIMcD+w2CeYI05DwdbYh4kSjjlwm4Ks+jlwmP12yuX3T2RnNdzi7EIolC6JmjlwmIC+plજWWjlwmkKgwvEjlwmjMX4Ijlwm"+
 "PxVG0w1Xjlwmx2I71I9iLn1Ps/YJq5cZvcJn5yUVUG7c3nmkbnzehjlwm/GlvPaaaujlwm2yHOjlwmQhPzjlwm2X7Xw8oUyPFvajlwm3S6L/Gjlwmh1Sc"+
 "v+N1h1/N70BOQMAAA==";
-const bytes=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));
+const clean=b64.replace(/[^A-Za-z0-9+/=]/g,"");
+const bytes=Uint8Array.from(atob(clean),c=>c.charCodeAt(0));
 const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
 const html=await new Response(stream).text();
 document.open();document.write(html);document.close();
